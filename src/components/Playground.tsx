@@ -1,8 +1,6 @@
 import type { Game } from '@/lib/db/games'
 import type { Participant } from '@/lib/db/participants'
-import { ZONES } from '@/lib/constants'
-
-type Zone = 'full' | 'zone_a' | 'zone_b'
+import { ZONES, type Zone } from '@/lib/constants'
 const ZONE_ORDER: Zone[] = ['full', 'zone_a', 'zone_b']
 
 export default function Playground({
