@@ -39,3 +39,13 @@ export async function getUserById(id: string): Promise<User | null> {
     .maybeSingle()
   return data
 }
+
+export async function listAllUsers(): Promise<User[]> {
+  const supabase = createServiceClient()
+  const { data } = await supabase
+    .from('users')
+    .select('*')
+    .not('team', 'is', null)
+    .order('name', { ascending: true })
+  return data ?? []
+}

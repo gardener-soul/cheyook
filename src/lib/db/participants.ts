@@ -86,3 +86,20 @@ export async function selectRandomParticipants(gameId: string, count: number): P
       .in('id', rejected)
   }
 }
+
+export async function getActiveGameParticipants(
+  gameIds: string[]
+): Promise<Record<string, Participant[]>> {
+  if (gameIds.length === 0) return {}
+  const supabase = createServiceClient()
+  const { data } = await supabase
+    .from('game_participants')
+    .select('*, users(name, village)')
+    .in('game_id', gameIds)
+  const result: Record<string, Participant[]> = {}
+  for (const p of data ?? []) {
+    if (!result[p.game_id]) result[p.game_id] = []
+    result[p.game_id].push(p)
+  }
+  return result
+}
