@@ -6,9 +6,14 @@ export default async function Navbar() {
 
   return (
     <nav className="bg-blue-600 px-4 py-3 flex items-center justify-between shadow-md">
-      <Link href="/" className="font-bold text-xl text-white tracking-tight">
-        🏃 체육대회
-      </Link>
+      <div className="flex items-center gap-4">
+        <Link href="/" className="font-bold text-xl text-white tracking-tight">
+          🏃 체육대회
+        </Link>
+        <Link href="/games" className="text-blue-100 hover:text-white text-sm transition-colors">
+          게임
+        </Link>
+      </div>
       <div className="flex gap-3 items-center">
         {user ? (
           <>
