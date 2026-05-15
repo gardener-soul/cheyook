@@ -10,8 +10,11 @@ export default async function Navbar() {
         <Link href="/" className="font-bold text-xl text-white tracking-tight">
           🏃 체육대회
         </Link>
-        <Link href="/games" className="text-blue-100 hover:text-white text-sm transition-colors">
+        <Link href="/games" className="text-blue-100 hover:text-white text-base transition-colors">
           게임
+        </Link>
+        <Link href="/carpool" className="text-blue-100 hover:text-white text-base transition-colors">
+          🚗 카풀
         </Link>
       </div>
       <div className="flex gap-3 items-center">
