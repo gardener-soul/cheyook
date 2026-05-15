@@ -1,5 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/service'
 
+const CAR_WITH_PASSENGERS_SELECT = '*, driver:users!driver_id(name, village), passengers:carpool_passengers(id, car_id, user_id, created_at, users(name, village))'
+
 export type CarpoolCar = {
   id: string
   driver_id: string
@@ -27,7 +29,7 @@ export async function listCarsWithPassengers(): Promise<CarpoolCarWithPassengers
   const supabase = createServiceClient()
   const { data } = await supabase
     .from('carpool_cars')
-    .select('*, driver:users!driver_id(name, village), passengers:carpool_passengers(id, car_id, user_id, created_at, users(name, village))')
+    .select(CAR_WITH_PASSENGERS_SELECT)
     .order('created_at', { ascending: true })
   return (data ?? []) as CarpoolCarWithPassengers[]
 }
@@ -39,14 +41,14 @@ export async function getCarById(carId: string): Promise<CarpoolCar | null> {
     .select('*')
     .eq('id', carId)
     .maybeSingle()
-  return data
+  return data as CarpoolCar | null
 }
 
 export async function getCarWithPassengers(carId: string): Promise<CarpoolCarWithPassengers | null> {
   const supabase = createServiceClient()
   const { data } = await supabase
     .from('carpool_cars')
-    .select('*, driver:users!driver_id(name, village), passengers:carpool_passengers(id, car_id, user_id, created_at, users(name, village))')
+    .select(CAR_WITH_PASSENGERS_SELECT)
     .eq('id', carId)
     .maybeSingle()
   return data as CarpoolCarWithPassengers | null
