@@ -11,9 +11,10 @@ interface CarModalProps {
   currentUser: { id: string; name: string } | null
   unassigned: { id: string; name: string; village: string }[]
   onClose: () => void
+  isGloballyAssigned?: boolean
 }
 
-export default function CarModal({ car, currentUser, unassigned, onClose }: CarModalProps) {
+export default function CarModal({ car, currentUser, unassigned, onClose, isGloballyAssigned = false }: CarModalProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [showInvite, setShowInvite] = useState(false)
@@ -22,7 +23,7 @@ export default function CarModal({ car, currentUser, unassigned, onClose }: CarM
   const isDriver = currentUser?.id === car.driver_id
   const myPassenger = car.passengers.find((p) => p.user_id === currentUser?.id)
   const isFull = car.passengers.length >= car.capacity
-  const isUnassigned = !myPassenger && !isDriver
+  const isUnassigned = !myPassenger && !isDriver && !isGloballyAssigned
 
   async function handleJoin() {
     setLoading(true)
