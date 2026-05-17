@@ -20,8 +20,8 @@ export default function UnassignedList({ users, onInvite }: UnassignedListProps)
           {users.map((u) => (
             <li
               key={u.id}
-              className={`flex items-center justify-between px-2 py-1.5 rounded text-sm ${
-                onInvite ? 'cursor-pointer hover:bg-yellow-200' : ''
+              className={`flex items-center justify-between px-3 py-3 rounded text-sm min-h-[44px] ${
+                onInvite ? 'cursor-pointer hover:bg-yellow-200 active:bg-yellow-300' : ''
               }`}
               onClick={onInvite ? () => onInvite(u.id) : undefined}
             >
