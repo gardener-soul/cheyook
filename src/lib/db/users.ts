@@ -20,11 +20,11 @@ export async function findUser(name: string, village: string): Promise<User | nu
   return data
 }
 
-export async function createUser(name: string, village: string): Promise<User | null> {
+export async function createUser(name: string, village: string, team: 'blue' | 'white' | null): Promise<User | null> {
   const supabase = createServiceClient()
   const { data } = await supabase
     .from('users')
-    .insert({ name, village, is_admin: name === 'admin' })
+    .insert({ name, village, team, is_admin: name === 'admin' })
     .select()
     .single()
   return data

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createUser, findUser } from '@/lib/db/users'
 import { signToken, SESSION_COOKIE } from '@/lib/session'
-import { VILLAGES } from '@/lib/constants'
+import { VILLAGES, VILLAGE_TEAM } from '@/lib/constants'
 
 export async function POST(request: NextRequest) {
   const { name, village } = await request.json()
@@ -19,7 +19,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: '이미 가입된 이름입니다.' }, { status: 409 })
   }
 
-  const user = await createUser(trimmedName, village)
+  const team = trimmedName === 'admin' ? null : VILLAGE_TEAM[village as keyof typeof VILLAGE_TEAM]
+  const user = await createUser(trimmedName, village, team)
   if (!user) {
     return NextResponse.json({ error: '가입에 실패했습니다.' }, { status: 500 })
   }

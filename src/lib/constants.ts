@@ -11,6 +11,17 @@ export const TEAMS = {
 
 export type Team = 'blue' | 'white'
 
+export const VILLAGE_TEAM: Record<Village, Team> = {
+  '예앞': 'blue',
+  '당근': 'blue',
+  '글라스': 'blue',
+  '비쥬얼': 'blue',
+  '바인': 'white',
+  'FC11': 'white',
+  '주먹': 'white',
+  '하하': 'white',
+}
+
 export const ZONES = {
   full: '운동장 전체',
   zone_a: '운동장 A구역',
