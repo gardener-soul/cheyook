@@ -25,7 +25,7 @@ export default function AdminTabs({
 
   return (
     <div>
-      <div className="flex gap-2 mb-6 border-b">
+      <div className="flex mb-6 border-b overflow-x-auto">
         {(['games', 'scores', 'participants'] as const).map((t) => (
           <button
             key={t}
@@ -124,9 +124,9 @@ function ParticipantSection({ game }: { game: Game }) {
             {participants.map((p) => (
               <div
                 key={p.id}
-                className="flex items-center justify-between text-sm border rounded px-3 py-2"
+                className="flex items-center justify-between gap-2 text-sm border rounded px-3 py-2 flex-wrap"
               >
-                <span>
+                <span className="flex-1 min-w-0">
                   {p.users?.village} · {p.users?.name}
                   <span className={`ml-2 text-xs ${p.status === 'selected' ? 'text-green-600' : p.status === 'rejected' ? 'text-red-500' : 'text-gray-400'}`}>
                     ({p.status === 'selected' ? '선발' : p.status === 'rejected' ? '탈락' : '대기'})
@@ -135,13 +135,13 @@ function ParticipantSection({ game }: { game: Game }) {
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleSelect(p.id, 'selected')}
-                    className={`px-2 py-0.5 rounded text-xs ${p.status === 'selected' ? 'bg-green-600 text-white' : 'bg-gray-100 hover:bg-green-100'}`}
+                    className={`px-3 py-1.5 rounded text-xs ${p.status === 'selected' ? 'bg-green-600 text-white' : 'bg-gray-100 hover:bg-green-100'}`}
                   >
                     선발
                   </button>
                   <button
                     onClick={() => handleSelect(p.id, 'rejected')}
-                    className={`px-2 py-0.5 rounded text-xs ${p.status === 'rejected' ? 'bg-red-600 text-white' : 'bg-gray-100 hover:bg-red-100'}`}
+                    className={`px-3 py-1.5 rounded text-xs ${p.status === 'rejected' ? 'bg-red-600 text-white' : 'bg-gray-100 hover:bg-red-100'}`}
                   >
                     탈락
                   </button>
