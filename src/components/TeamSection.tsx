@@ -24,7 +24,7 @@ export default function TeamSection({
       <ScoreBoard scores={scores} hidden={hidden} />
 
       {/* 청팀 아바타 — 데스크탑 전용 왼쪽 마진 */}
-      <div className="hidden md:flex absolute top-0 right-full pr-8 flex-wrap justify-end gap-1.5 w-64 content-start pt-8">
+      <div className="hidden md:grid absolute top-0 right-full pr-8 grid-cols-5 gap-1.5 w-64 content-start pt-8">
         {blue.map((u, i) => (
           <div
             key={u.id}
@@ -38,7 +38,7 @@ export default function TeamSection({
       </div>
 
       {/* 백팀 아바타 — 데스크탑 전용 오른쪽 마진 */}
-      <div className="hidden md:flex absolute top-0 left-full pl-8 flex-wrap justify-start gap-1.5 w-64 content-start pt-8">
+      <div className="hidden md:grid absolute top-0 left-full pl-8 grid-cols-5 gap-1.5 w-64 content-start pt-8">
         {white.map((u, i) => (
           <div
             key={u.id}

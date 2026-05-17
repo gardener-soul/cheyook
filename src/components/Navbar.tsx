@@ -11,7 +11,7 @@ export default async function Navbar() {
           🏃 체육대회
         </Link>
         <Link href="/games" className="text-blue-100 hover:text-white text-base transition-colors">
-          게임
+          🔥 게임
         </Link>
         <Link href="/carpool" className="text-blue-100 hover:text-white text-base transition-colors">
           🚗 카풀
