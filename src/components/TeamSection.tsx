@@ -19,7 +19,7 @@ export default function TeamSection({
   const [showTeams, setShowTeams] = useState(false)
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative">
       <h2 className="text-lg font-bold mb-3 text-center">팀 점수</h2>
       <ScoreBoard scores={scores} hidden={hidden} />
 
@@ -53,6 +53,7 @@ export default function TeamSection({
 
       {/* 청백팀 보기 버튼 — 모바일 전용 */}
       <button
+        type="button"
         className="md:hidden mt-4 w-full py-2.5 rounded-xl font-bold text-sm border border-blue-200 bg-gradient-to-r from-blue-500 to-white text-blue-900 shadow-sm"
         onClick={() => setShowTeams((v) => !v)}
       >
