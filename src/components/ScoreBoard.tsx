@@ -15,7 +15,7 @@ export default function ScoreBoard({
         {hidden ? (
           <div className="text-5xl font-black text-white/30 select-none">?</div>
         ) : (
-          <div className="text-6xl font-black text-white">{scores.blue}</div>
+          <div className="text-5xl md:text-6xl font-black text-white">{scores.blue}</div>
         )}
         <div className="text-blue-200 text-sm mt-2">점</div>
       </div>
@@ -31,7 +31,7 @@ export default function ScoreBoard({
         {hidden ? (
           <div className="text-5xl font-black text-blue-100 select-none">?</div>
         ) : (
-          <div className="text-6xl font-black text-blue-700">{scores.white}</div>
+          <div className="text-5xl md:text-6xl font-black text-blue-700">{scores.white}</div>
         )}
         <div className="text-blue-300 text-sm mt-2">점</div>
       </div>
