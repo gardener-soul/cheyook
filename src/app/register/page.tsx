@@ -32,7 +32,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="max-w-sm mx-auto mt-12">
+    <div className="max-w-sm mx-auto mt-6 sm:mt-12">
       <h1 className="text-2xl font-bold mb-6 text-center">가입하기</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-white p-6 rounded-xl shadow-sm">
         <div>
