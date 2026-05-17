@@ -33,9 +33,9 @@ export default function CarpoolClient({ cars, unassigned, currentUser }: Carpool
 
   return (
     <>
-      <div className="flex gap-4 items-start">
-        {/* 왼쪽: 차량 목록 */}
-        <div style={{ flex: '1.6' }}>
+      <div className="flex flex-col gap-4 md:flex-row md:items-start">
+        {/* 차량 목록 */}
+        <div className="md:flex-[1.6]">
           <div className="flex items-center justify-between mb-3">
             <h1 className="text-xl font-bold">🚗 카풀</h1>
             {showRegisterButton && (
@@ -56,7 +56,6 @@ export default function CarpoolClient({ cars, unassigned, currentUser }: Carpool
                 onClick={() => setSelectedCarId(car.id)}
               />
             ))}
-            {/* 빈 슬롯 카드 */}
             <button
               onClick={() => {
                 if (!currentUser) {
@@ -72,13 +71,12 @@ export default function CarpoolClient({ cars, unassigned, currentUser }: Carpool
           </div>
         </div>
 
-        {/* 오른쪽: 미배정 명단 */}
-        <div style={{ flex: '1' }} className="bg-yellow-50 rounded-2xl p-4 sticky top-4">
+        {/* 미배정 명단 */}
+        <div className="bg-yellow-50 rounded-2xl p-4 md:flex-[1] md:sticky md:top-4">
           <UnassignedList users={unassigned} />
         </div>
       </div>
 
-      {/* 차량 상세 모달 */}
       {selectedCar && (
         <CarModal
           car={selectedCar}
@@ -89,7 +87,6 @@ export default function CarpoolClient({ cars, unassigned, currentUser }: Carpool
         />
       )}
 
-      {/* 차량 등록 모달 */}
       {showRegister && (
         <CarRegisterModal
           onClose={() => {
