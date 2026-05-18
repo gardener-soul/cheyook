@@ -31,7 +31,19 @@ export default async function GameDetailPage({
           </span>
         </div>
         <div className="text-gray-500 text-sm">{ZONES[game.zone]}</div>
-        {game.description && <p className="mt-3 text-gray-700">{game.description}</p>}
+        {game.description && (
+          <p className="mt-3 text-gray-700 whitespace-pre-line">{game.description}</p>
+        )}
+        {game.instagram_url && (
+          <a
+            href={game.instagram_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition-opacity"
+          >
+            ▶ 영상으로 보기
+          </a>
+        )}
         <div className="flex gap-4 mt-3 text-sm text-gray-500">
           {game.points != null && <span>배점: {game.points}점</span>}
           {game.max_participants != null && (
