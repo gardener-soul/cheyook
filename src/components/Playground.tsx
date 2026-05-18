@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Game } from '@/lib/db/games'
 import type { Participant } from '@/lib/db/participants'
 import { ZONES, type Zone } from '@/lib/constants'
@@ -34,9 +35,9 @@ export default function Playground({
                 const participants = participantsByGame[game.id] ?? []
                 return (
                   <div key={game.id}>
-                    <div className="font-semibold text-green-800 mb-2">
+                    <Link href={`/games/${game.id}`} className="font-semibold text-green-800 mb-2 hover:underline block">
                       🔥 {game.name}
-                    </div>
+                    </Link>
                     {participants.length > 0 ? (
                       <div className="flex flex-wrap gap-1.5">
                         {participants.map((p, i) => (
