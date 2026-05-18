@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { getGameById } from '@/lib/db/games'
 import { getParticipants, getParticipation } from '@/lib/db/participants'
 import { getSession } from '@/lib/auth'
-import { ZONES, GAME_STATUSES } from '@/lib/constants'
+import { ZONES, GAME_STATUSES, VILLAGE_TEAM, type Village } from '@/lib/constants'
 import JoinButton from './JoinButton'
 
 export default async function GameDetailPage({
@@ -20,6 +20,19 @@ export default async function GameDetailPage({
 
   const selected = participants.filter((p) => p.status === 'selected')
   const registered = participants.filter((p) => p.status === 'registered')
+
+  const selectedBlue = selected.filter(
+    (p) => p.users?.village && VILLAGE_TEAM[p.users.village as Village] === 'blue'
+  )
+  const selectedWhite = selected.filter(
+    (p) => p.users?.village && VILLAGE_TEAM[p.users.village as Village] === 'white'
+  )
+  const registeredBlue = registered.filter(
+    (p) => p.users?.village && VILLAGE_TEAM[p.users.village as Village] === 'blue'
+  )
+  const registeredWhite = registered.filter(
+    (p) => p.users?.village && VILLAGE_TEAM[p.users.village as Village] === 'white'
+  )
 
   return (
     <div className="flex flex-col gap-6">
@@ -64,12 +77,29 @@ export default async function GameDetailPage({
       {selected.length > 0 && (
         <section>
           <h2 className="font-semibold mb-2">✅ 선발된 참여자 ({selected.length}명)</h2>
-          <div className="flex flex-wrap gap-2">
-            {selected.map((p) => (
-              <span key={p.id} className="bg-blue-50 border border-blue-200 rounded-full px-3 py-1 text-sm">
-                {p.users?.village} · {p.users?.name}
-              </span>
-            ))}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <div className="text-xs font-medium text-blue-600 mb-1.5">청팀 ({selectedBlue.length}명)</div>
+              <div className="flex flex-col gap-1">
+                {selectedBlue.map((p) => (
+                  <span key={p.id} className="bg-blue-50 border border-blue-200 rounded-full px-3 py-1 text-sm">
+                    {p.users?.village} · {p.users?.name}
+                  </span>
+                ))}
+                {selectedBlue.length === 0 && <span className="text-xs text-gray-300">없음</span>}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-medium text-gray-500 mb-1.5">백팀 ({selectedWhite.length}명)</div>
+              <div className="flex flex-col gap-1">
+                {selectedWhite.map((p) => (
+                  <span key={p.id} className="bg-gray-50 border border-gray-200 rounded-full px-3 py-1 text-sm">
+                    {p.users?.village} · {p.users?.name}
+                  </span>
+                ))}
+                {selectedWhite.length === 0 && <span className="text-xs text-gray-300">없음</span>}
+              </div>
+            </div>
           </div>
         </section>
       )}
@@ -82,12 +112,29 @@ export default async function GameDetailPage({
         {registered.length === 0 && selected.length === 0 ? (
           <p className="text-gray-400 text-sm">아직 신청자가 없습니다.</p>
         ) : (
-          <div className="flex flex-wrap gap-2">
-            {registered.map((p) => (
-              <span key={p.id} className="bg-gray-50 border border-gray-200 rounded-full px-3 py-1 text-sm">
-                {p.users?.village} · {p.users?.name}
-              </span>
-            ))}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <div className="text-xs font-medium text-blue-600 mb-1.5">청팀 ({registeredBlue.length}명)</div>
+              <div className="flex flex-col gap-1">
+                {registeredBlue.map((p) => (
+                  <span key={p.id} className="bg-blue-50 border border-blue-200 rounded-full px-3 py-1 text-sm">
+                    {p.users?.village} · {p.users?.name}
+                  </span>
+                ))}
+                {registeredBlue.length === 0 && <span className="text-xs text-gray-300">없음</span>}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-medium text-gray-500 mb-1.5">백팀 ({registeredWhite.length}명)</div>
+              <div className="flex flex-col gap-1">
+                {registeredWhite.map((p) => (
+                  <span key={p.id} className="bg-gray-50 border border-gray-200 rounded-full px-3 py-1 text-sm">
+                    {p.users?.village} · {p.users?.name}
+                  </span>
+                ))}
+                {registeredWhite.length === 0 && <span className="text-xs text-gray-300">없음</span>}
+              </div>
+            </div>
           </div>
         )}
       </section>
