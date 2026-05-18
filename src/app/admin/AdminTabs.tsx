@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import type { Game } from '@/lib/db/games'
 import type { TeamScores, ScoreLog } from '@/lib/db/scores'
 import type { Participant } from '@/lib/db/participants'
+import { VILLAGE_TEAM, type Village } from '@/lib/constants'
 import GameForm from '@/components/admin/GameForm'
 import GameList from '@/components/admin/GameList'
 import ScoreManager from '@/components/admin/ScoreManager'
@@ -116,39 +117,60 @@ function ParticipantSection({ game }: { game: Game }) {
               </button>
             )}
           </div>
-          <div className="flex flex-col gap-2">
-            {participants.length === 0 && loaded && (
-              <p className="text-gray-400 text-sm">신청자 없음</p>
-            )}
-            {!loaded && <p className="text-gray-400 text-sm">로딩 중...</p>}
-            {participants.map((p) => (
-              <div
-                key={p.id}
-                className="flex items-center justify-between gap-2 text-sm border rounded px-3 py-2 flex-wrap"
-              >
-                <span className="flex-1 min-w-0">
-                  {p.users?.village} · {p.users?.name}
-                  <span className={`ml-2 text-xs ${p.status === 'selected' ? 'text-green-600' : p.status === 'rejected' ? 'text-red-500' : 'text-gray-400'}`}>
-                    ({p.status === 'selected' ? '선발' : p.status === 'rejected' ? '탈락' : '대기'})
-                  </span>
-                </span>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleSelect(p.id, 'selected')}
-                    className={`px-3 py-1.5 rounded text-xs ${p.status === 'selected' ? 'bg-green-600 text-white' : 'bg-gray-100 hover:bg-green-100'}`}
-                  >
-                    선발
-                  </button>
-                  <button
-                    onClick={() => handleSelect(p.id, 'rejected')}
-                    className={`px-3 py-1.5 rounded text-xs ${p.status === 'rejected' ? 'bg-red-600 text-white' : 'bg-gray-100 hover:bg-red-100'}`}
-                  >
-                    탈락
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+          {!loaded && <p className="text-gray-400 text-sm">로딩 중...</p>}
+          {loaded && participants.length === 0 && (
+            <p className="text-gray-400 text-sm">신청자 없음</p>
+          )}
+          {loaded && participants.length > 0 && (
+            <div className="grid grid-cols-2 gap-3">
+              {(['blue', 'white'] as const).map((team) => {
+                const teamParticipants = participants.filter(
+                  (p) =>
+                    p.users?.village &&
+                    VILLAGE_TEAM[p.users.village as Village] === team
+                )
+                return (
+                  <div key={team}>
+                    <div className={`text-xs font-semibold mb-2 ${team === 'blue' ? 'text-blue-600' : 'text-gray-500'}`}>
+                      {team === 'blue' ? '청팀' : '백팀'} ({teamParticipants.length}명)
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      {teamParticipants.map((p) => (
+                        <div
+                          key={p.id}
+                          className="flex flex-col gap-1 text-sm border rounded px-2 py-1.5"
+                        >
+                          <span className="text-xs">
+                            {p.users?.village} · {p.users?.name}
+                            <span className={`ml-1 ${p.status === 'selected' ? 'text-green-600' : p.status === 'rejected' ? 'text-red-500' : 'text-gray-400'}`}>
+                              ({p.status === 'selected' ? '선발' : p.status === 'rejected' ? '탈락' : '대기'})
+                            </span>
+                          </span>
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => handleSelect(p.id, 'selected')}
+                              className={`flex-1 py-1 rounded text-xs ${p.status === 'selected' ? 'bg-green-600 text-white' : 'bg-gray-100 hover:bg-green-100'}`}
+                            >
+                              선발
+                            </button>
+                            <button
+                              onClick={() => handleSelect(p.id, 'rejected')}
+                              className={`flex-1 py-1 rounded text-xs ${p.status === 'rejected' ? 'bg-red-600 text-white' : 'bg-gray-100 hover:bg-red-100'}`}
+                            >
+                              탈락
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                      {teamParticipants.length === 0 && (
+                        <p className="text-xs text-gray-300">없음</p>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>
