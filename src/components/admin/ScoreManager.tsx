@@ -31,6 +31,7 @@ export default function ScoreManager({
     })
     setScoreVisible(next)
     setVisibilityLoading(false)
+    router.refresh()
   }
 
   async function handleSubmit(e: React.FormEvent) {

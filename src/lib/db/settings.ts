@@ -14,5 +14,5 @@ export async function setScoreVisible(visible: boolean): Promise<void> {
   const supabase = createServiceClient()
   await supabase
     .from('settings')
-    .upsert({ key: 'score_visible', value: String(visible) })
+    .upsert({ key: 'score_visible', value: String(visible) }, { onConflict: 'key' })
 }
