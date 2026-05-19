@@ -47,7 +47,7 @@ export default function Playground({
                             style={{ animationDelay: `${(i * 0.1) % 1.0}s` }}
                             title={p.users?.name}
                           >
-                            {(p.users?.name ?? '?').slice(0, 2)}
+                            {(p.users?.name ?? '?').slice(-2)}
                           </div>
                         ))}
                       </div>

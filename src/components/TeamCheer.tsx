@@ -17,7 +17,7 @@ export default function TeamCheer({ users }: { users: User[] }) {
             style={{ animationDelay: `${(i * 0.15) % 1.2}s` }}
             title={u.name}
           >
-            {u.name.slice(0, 2)}
+            {u.name.slice(-2)}
           </div>
         ))}
       </div>
@@ -34,7 +34,7 @@ export default function TeamCheer({ users }: { users: User[] }) {
             style={{ animationDelay: `${(i * 0.15) % 1.2}s` }}
             title={u.name}
           >
-            {u.name.slice(0, 2)}
+            {u.name.slice(-2)}
           </div>
         ))}
       </div>
