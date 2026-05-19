@@ -62,10 +62,10 @@ export default async function GameDetailPage({
         )}
       </div>
 
-      {user && game.status === 'pending' && (
+      {user && (game.status === 'pending' || game.status === 'active') && (
         <JoinButton gameId={id} participation={myParticipation} />
       )}
-      {!user && game.status === 'pending' && (
+      {!user && (game.status === 'pending' || game.status === 'active') && (
         <p className="text-sm text-gray-500">
           참여 신청하려면 <a href="/login" className="text-blue-600">로그인</a>하세요.
         </p>
