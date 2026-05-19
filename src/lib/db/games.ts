@@ -6,11 +6,11 @@ export type Game = {
   name: string
   description: string | null
   zone: Zone
-  max_participants: number | null
   points: number | null
   status: 'pending' | 'active' | 'completed'
   order_index: number
   winner_team: 'blue' | 'white' | 'draw' | null
+  instagram_url: string | null
   created_at: string
 }
 
@@ -37,9 +37,9 @@ export async function createGame(input: {
   name: string
   description?: string
   zone: Zone
-  max_participants?: number
   points?: number
   order_index: number
+  instagram_url?: string
 }): Promise<Game | null> {
   const supabase = createServiceClient()
   const { data } = await supabase.from('games').insert(input).select().single()

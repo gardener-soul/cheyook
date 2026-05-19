@@ -10,7 +10,6 @@ export default function GameForm() {
     name: '',
     description: '',
     zone: 'full',
-    max_participants: '',
     points: '',
     order_index: '0',
   })
@@ -30,13 +29,12 @@ export default function GameForm() {
         name: form.name,
         description: form.description || undefined,
         zone: form.zone,
-        max_participants: form.max_participants ? Number(form.max_participants) : undefined,
         points: form.points ? Number(form.points) : undefined,
         order_index: Number(form.order_index),
       }),
     })
     setLoading(false)
-    setForm({ name: '', description: '', zone: 'full', max_participants: '', points: '', order_index: '0' })
+    setForm({ name: '', description: '', zone: 'full', points: '', order_index: '0' })
     router.refresh()
   }
 
@@ -86,16 +84,6 @@ export default function GameForm() {
             value={form.points}
             onChange={(e) => set('points', e.target.value)}
             placeholder="미정"
-            className="w-full border rounded px-2 py-1.5 text-sm"
-          />
-        </div>
-        <div>
-          <label className="text-xs text-gray-500">참가 제한 (명)</label>
-          <input
-            type="number"
-            value={form.max_participants}
-            onChange={(e) => set('max_participants', e.target.value)}
-            placeholder="제한 없음"
             className="w-full border rounded px-2 py-1.5 text-sm"
           />
         </div>

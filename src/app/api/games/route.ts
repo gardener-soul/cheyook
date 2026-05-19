@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   if (!admin) return NextResponse.json({ error: '권한 없음' }, { status: 403 })
 
   const body = await request.json()
-  const { name, description, zone, max_participants, points, order_index } = body
+  const { name, description, zone, points, order_index, instagram_url } = body
 
   if (!name || !zone) {
     return NextResponse.json({ error: '이름과 구역은 필수입니다.' }, { status: 400 })
@@ -22,9 +22,9 @@ export async function POST(request: NextRequest) {
     name,
     description,
     zone,
-    max_participants: max_participants ?? null,
     points: points ?? null,
     order_index: order_index ?? 0,
+    instagram_url: instagram_url ?? null,
   })
 
   return NextResponse.json(game, { status: 201 })

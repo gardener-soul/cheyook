@@ -57,12 +57,9 @@ export default async function GameDetailPage({
             ▶ 영상으로 보기
           </a>
         )}
-        <div className="flex gap-4 mt-3 text-sm text-gray-500">
-          {game.points != null && <span>배점: {game.points}점</span>}
-          {game.max_participants != null && (
-            <span>참가 제한: {game.max_participants}명</span>
-          )}
-        </div>
+        {game.points != null && (
+          <div className="mt-3 text-sm text-gray-500">배점: {game.points}점</div>
+        )}
       </div>
 
       {user && game.status === 'pending' && (
@@ -106,8 +103,7 @@ export default async function GameDetailPage({
 
       <section>
         <h2 className="font-semibold mb-2">
-          📝 신청자 ({participants.length}명
-          {game.max_participants ? ` / 제한 ${game.max_participants}명` : ''})
+          📝 신청자 ({participants.length}명)
         </h2>
         <div className="grid grid-cols-2 gap-3">
           <div>

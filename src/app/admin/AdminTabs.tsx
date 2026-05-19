@@ -75,16 +75,6 @@ function ParticipantSection({ game }: { game: Game }) {
       })
   }, [open, loaded, game.id])
 
-  async function handleRandom() {
-    const res = await fetch(`/api/games/${game.id}/participants`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'random' }),
-    })
-    const data = await res.json()
-    setParticipants(data)
-  }
-
   async function handleSelect(participantId: string, status: 'selected' | 'rejected') {
     await fetch(`/api/games/${game.id}/participants`, {
       method: 'PATCH',
@@ -106,17 +96,7 @@ function ParticipantSection({ game }: { game: Game }) {
         <span className="text-gray-400 text-sm">{open ? '▲' : '▼'}</span>
       </button>
       {open && (
-        <div className="px-4 pb-4 border-t">
-          <div className="flex gap-2 my-3">
-            {game.max_participants && (
-              <button
-                onClick={handleRandom}
-                className="text-sm bg-purple-600 text-white px-3 py-1 rounded"
-              >
-                랜덤 {game.max_participants}명 선발
-              </button>
-            )}
-          </div>
+        <div className="px-4 pb-4 border-t pt-3">
           {!loaded && <p className="text-gray-400 text-sm">로딩 중...</p>}
           {loaded && participants.length === 0 && (
             <p className="text-gray-400 text-sm">신청자 없음</p>
