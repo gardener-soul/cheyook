@@ -6,13 +6,12 @@ export async function getScoreVisible(): Promise<boolean> {
     .from('settings')
     .select('value')
     .eq('key', 'score_visible')
-    .single()
+    .maybeSingle()
   return data?.value !== 'false'
 }
 
 export async function setScoreVisible(visible: boolean): Promise<void> {
   const supabase = createServiceClient()
-  await supabase
-    .from('settings')
-    .upsert({ key: 'score_visible', value: String(visible) }, { onConflict: 'key' })
+  await supabase.from('settings').delete().eq('key', 'score_visible')
+  await supabase.from('settings').insert({ key: 'score_visible', value: String(visible) })
 }
