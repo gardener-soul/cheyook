@@ -133,6 +133,7 @@ export async function getUnassignedUsers(): Promise<{ id: string; name: string; 
   let query = supabase
     .from('users')
     .select('id, name, village')
+    .eq('is_admin', false)
     .order('name', { ascending: true })
   if (assignedIds.length > 0) {
     query = query.not('id', 'in', `(${assignedIds.join(',')})`)

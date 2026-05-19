@@ -13,7 +13,7 @@ export default function ScoreBoard({
       <div className="flex-1 bg-blue-600 rounded-2xl p-6 text-center shadow-lg">
         <div className="text-blue-100 font-bold text-base mb-3 tracking-wide">🔵 청팀</div>
         {hidden ? (
-          <div className="text-5xl font-black text-white/30 select-none">?</div>
+          <div className="text-5xl font-black text-white/30 select-none tracking-widest">???</div>
         ) : (
           <div className="text-5xl md:text-6xl font-black text-white">{scores.blue}</div>
         )}
@@ -29,7 +29,7 @@ export default function ScoreBoard({
       <div className="flex-1 bg-white border-2 border-blue-200 rounded-2xl p-6 text-center shadow-lg">
         <div className="text-blue-400 font-bold text-base mb-3 tracking-wide">⚪ 백팀</div>
         {hidden ? (
-          <div className="text-5xl font-black text-blue-100 select-none">?</div>
+          <div className="text-5xl font-black text-blue-100 select-none tracking-widest">???</div>
         ) : (
           <div className="text-5xl md:text-6xl font-black text-blue-700">{scores.white}</div>
         )}
